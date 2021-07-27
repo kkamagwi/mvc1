@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}{{news_deil.title}}{% endblock %}
+{% block content %}
+
+
+    <h1>{{news_deil.title}}</h1>
+    <img heighвt=50 src={{news_deil.img_url}}><br>
+    {{news_deil.text}}<br>
+    <a class="btn btn-default" href="{% url 'news_edit' pk=news_deil.pk %}">
+       редактировать
+    </a>
+    <a class="btn btn-default" href="{% url 'news_delete' pk=news_deil.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+
+<hr>
+{% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+{% endwith %}
+
+{% for comment in comments %}
+    <div class="comment">
+        <p class="info">
+            Comment {{ forloop.counter }} by {{ comment.name }}
+            {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+{% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}
+
+{% if new_comment %}
+    <h2>Your comment has been added.</h2>
+{% else %}
+    <h2>Add a new comment</h2>
+    <form action="." method="post">
+        {{ comment_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Add comment"></p>
+    </form>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}News page{% endblock %}
+{% block content %}
+<div class="card" style="width:300px">
+{%for one_news in all_news %}
+    
+    <img class="main_page_img" height=10% src="{{one_news.img_url}}">
+    <div class="card-body">
+      <h4 class="card-title">{{one_news.title}}</h4>
+      <p class="card-text">{{one_news.text}}</p>
+      <a href={% url 'news_detail' pk=one_news.pk %} class="btn btn-primary">читать польностью</a>
+    </div>
+
+{%endfor%}
+</div>
+{% endblock %}

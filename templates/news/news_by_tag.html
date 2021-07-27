@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{tag.name}}{% endblock %}
+{% block content %}
+
+{%for one_news in news_by_tag %}
+
+<h1>{{one_news.title}}</h1>
+<img height=50 src={{one_news.img_url}}><br>
+{{one_news.text}}<br>
+<a href={% url 'news_detail' pk=one_news.pk %}>читать польностью</a>
+
+{%endfor%}
+
+{% endblock %}
