@@ -44,14 +44,8 @@ class RegistrationView(View):
             new_user.email = form.cleaned_data['email']
             new_user.password = form.cleaned_data['password']
             new_user.confirm_password = form.cleaned_data['confirm_password']
-            new_user.save()
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
-            CustomUser.objects.create(
-                email = new_user.email,
-                password = new_user.password
-
-            )
             user = authenticate(email=form.cleaned_data['email'],
                                  password=form.cleaned_data['password'])
             if user:
